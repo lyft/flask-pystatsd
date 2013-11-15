@@ -25,16 +25,18 @@ class SendMetric(object):
         host = os.environ['STATSD_HOSTNAME']
         port = 8127
         # Use the newstyle teardown_appcontext if it's available, otherwise fall back to the request context.
-        if hasattr(app, 'teardown_appcontext'):
-            app.teardown_appcontext(self.teardown)
-        else:
-            app.teardown_request(self.teardown)
+        #if hasattr(app, 'teardown_appcontext'):
+        #    app.teardown_appcontext(self.teardown)
+        #else:
+        #    app.teardown_request(self.teardown)
 
     def connect(self):
         return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
 
-    def teardown(self, exception):
-        ctx = stack.top
+    #def teardown(self, exception):
+    #   ctx = stack.top
+        #if hasattr(ctx, 'sqlite3_db'):
+        #    ctx.sqlite3_db.close()
 
     @property 
     def connection(self)
@@ -43,7 +45,6 @@ class SendMetric(object):
             if not hasattr(ctx, 'statsd'):
                 ctx.statsd = self.connect()
             return ctx.statsd
-
 
     def counter(self):
         connect.incr('VARIABLE')
