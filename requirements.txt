@@ -1,0 +1,1 @@
+https://github.com/lyft/pystatsd/archive/add-suffix.tar.gz
