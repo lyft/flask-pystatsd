@@ -1,4 +1,5 @@
 import statsd
+import os
 from flask import current_app
 
 # Boilerplate Extension code from http://flask.pocoo.org/docs/extensiondev/
