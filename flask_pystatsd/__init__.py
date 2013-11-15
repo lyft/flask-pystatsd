@@ -33,10 +33,9 @@ class SendMetric(object):
         else:
             app.teardown_request(self.teardown)
 
-    @property
     def counter(self):
         c.incr('VARIABLE')
-    @property
+    
     def timer(self):
         c.timing('KEY', VALUE)
 
