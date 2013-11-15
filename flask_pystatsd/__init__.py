@@ -12,6 +12,7 @@ class SendMetric(object):
 
     def __init__(self, app=None):
         self.app = app
+        self.counter = counter
         if app is not None:
             self.init_app(app)
 
