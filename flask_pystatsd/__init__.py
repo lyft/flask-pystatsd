@@ -12,7 +12,6 @@ class SendMetric(object):
 
     def __init__(self, app=None):
         self.app = app
-        self.counter = counter
         if app is not None:
             self.init_app(app)
 
@@ -25,19 +24,32 @@ class SendMetric(object):
         # Where we send our stats to.
         host = os.environ['STATSD_HOSTNAME']
         port = 8127
-
-        c = statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
-        
+        # Use the newstyle teardown_appcontext if it's available, otherwise fall back to the request context.
         if hasattr(app, 'teardown_appcontext'):
             app.teardown_appcontext(self.teardown)
         else:
             app.teardown_request(self.teardown)
 
+    def connect(self):
+        return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
+
+    def teardown(self, exception):
+        ctx = stack.top
+
+    @property 
+    def connection(self)
+        ctx = stack.top
+        if ctx is not None:
+            if not hasattr(ctx, 'statsd'):
+                ctx.statsd = self.connect()
+            return ctx.statsd
+
+
     def counter(self):
-        c.incr('VARIABLE')
+        connect.incr('VARIABLE')
     
     def timer(self):
-        c.timing('KEY', VALUE)
+        connect.timing('KEY', VALUE)
 
 
 # This sets up the UDP connection to the statsd server.
