@@ -16,7 +16,7 @@ class SendMetric(object):
             self.init_app(app)
 
     def init_app(self, app):
-        
+        app.config.setdefault('SQLITE3_DATABASE', ':memory:')
         # Use the newstyle teardown_appcontext if it's available, otherwise fall back to the request context.
         #if hasattr(app, 'teardown_appcontext'):
         #    app.teardown_appcontext(self.teardown)
