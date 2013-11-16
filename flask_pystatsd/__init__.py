@@ -30,7 +30,7 @@ class SendMetric(object):
         #else:
         #    app.teardown_request(self.teardown)
 
-    def connect(self):
+    def connect(self, app):
         return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
 
     #def teardown(self, exception):
@@ -39,7 +39,7 @@ class SendMetric(object):
         #    ctx.sqlite3_db.close()
 
     @property 
-    def connection(self)
+    def connection(self, app)
         ctx = stack.top
         if ctx is not None:
             if not hasattr(ctx, 'statsd'):
