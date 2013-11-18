@@ -2,17 +2,11 @@ import statsd
 import os
 from flask import current_app
 
-# Boilerplate Extension code from http://flask.pocoo.org/docs/extensiondev/
-try:
-  from flask import _app_ctx_stack as stack
-except ImportError:
-  from flask import _request_ctx_stack as stack
-
 class SendMetric(object):
 
   def __init__(self, app=None):
     self.app = app
-    
+
   def connect(self):
     # use try & catch
     # This is the prefix component of the metric name. It depends on the config/environment variable CLUSTER_NAME which is set through 'heroku config:set'
