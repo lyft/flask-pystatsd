@@ -9,7 +9,7 @@ except:
     suffix = None
 
 def setup_app(app):
-    app.statsd = statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', '127.0.0.1'),
-    port=int(os.environ.get('STATSD_PORT', '8125')),
-    prefix=os.environ.get('CLUSTER_NAME', ''),
+    app.statsd = statsd.StatsClient(host=os.environ['STATSD_HOSTNAME'],
+    port=int(os.environ['STATSD_PORT']),
+    prefix=os.environ['CLUSTER_NAME'],
     suffix=suffix)
