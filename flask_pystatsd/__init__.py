@@ -33,8 +33,8 @@ class SendMetric(object):
         suffix =  "heroku_" + os.popen('hostname').read().rstrip()
         # Where we send our stats to.
         #host = '127.0.0.1'
-        #host = os.environ['STATSD_HOSTNAME']
-        host = 'statsd-development-iad.lyft.net'
+        host = os.environ['STATSD_HOSTNAME']
+        #host = 'statsd-development-iad.lyft.net'
         port = 8127
         
         return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
