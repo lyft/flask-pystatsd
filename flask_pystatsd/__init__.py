@@ -2,14 +2,14 @@ import statsd
 import os
 from flask import current_app
 
-class SendMetric(object):
+class FlaskStatsd(object):
 
   def __init__(self, app=None):
     self.app = app
-    
+    #app.before_request(self.add_statsd)
     
   # TODO: turn this into a before_request hook.
-  def connect(self): 
+  #def add_statsd(self): 
     try:
       # The prefix component of the metric depends on the config/environment variable CLUSTER_NAME. 'heroku config:set'
       prefix = os.environ['CLUSTER_NAME']
@@ -23,7 +23,8 @@ class SendMetric(object):
       suffix = None
     
 
-    return statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
+    self.app.statsd = statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
                               port=os.environ.get('STATSD_PORT', None),
                               prefix=os.environ.get('CLUSTER_NAME', None),
                               suffix=suffix)
+FlaskStatsd(current_app)
