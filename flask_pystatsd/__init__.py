@@ -2,7 +2,7 @@ import statsd
 import os
 from flask import current_app
 
-class statsd(object):
+class SendMetric(object):
 
     def __init__(self, app=None):
         self.app = app
