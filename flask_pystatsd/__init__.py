@@ -6,6 +6,7 @@ class statsd(object):
 
     def __init__(self, app=None):
         self.app = app
+        self.init_app(app)
 
     def init_app(self, app):
         try:
