@@ -15,9 +15,6 @@ class SendMetric(object):
     if app is not None:
       self.init_app(app)
 
-  def init_app(self, app):
-    app.config.setdefault('SQLITE3_DATABASE', ':memory:')
-
   def connect(self):
     # use try & catch
     # This is the prefix component of the metric name. It depends on the config/environment variable CLUSTER_NAME which is set through 'heroku config:set'
