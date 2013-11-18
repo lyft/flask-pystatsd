@@ -2,7 +2,7 @@ import statsd
 import os
 from flask import current_app
 
-Class StatsdApp(object):
+class StatsdApp(object):
 
     def __init__(self, app=None):
         self.app = app
