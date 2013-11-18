@@ -12,9 +12,7 @@ class SendMetric(object):
 
   def __init__(self, app=None):
     self.app = app
-    if app is not None:
-      self.init_app(app)
-
+    
   def connect(self):
     # use try & catch
     # This is the prefix component of the metric name. It depends on the config/environment variable CLUSTER_NAME which is set through 'heroku config:set'
