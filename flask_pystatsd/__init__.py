@@ -7,14 +7,19 @@ class SendMetric(object):
   def __init__(self, app=None):
     self.app = app
 
-  def connect(self):
-    # use try & catch
-    # This is the prefix component of the metric name. It depends on the config/environment variable CLUSTER_NAME which is set through 'heroku config:set'
-    prefix = 'no_cluster_name_defined'
-    prefix = os.environ['CLUSTER_NAME']
-    # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
-    suffix = 'no_hostname_defined'
-    suffix =  "heroku_" + os.popen('hostname').read().rstrip()
+  def connect(self): 
+    try:
+      # The prefix component of the metric depends on the config/environment variable CLUSTER_NAME. 'heroku config:set'
+      prefix = os.environ['CLUSTER_NAME']
+    except:
+      prefix = 'no_cluster_name_defined'
+    
+    try:
+      # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
+      suffix =  "heroku_" + os.popen('hostname').read().rstrip()
+    except:
+      suffix = 'no_hostname_defined'
+    
     # Where we send our stats to.
     #host = '127.0.0.1'
     host = os.environ['STATSD_HOSTNAME']
