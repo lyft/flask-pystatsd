@@ -2,6 +2,12 @@ import statsd
 import os
 from flask import current_app
 
+try:
+    # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
+    suffix = "heroku_" + os.popen('hostname').read().rstrip()
+except:
+    suffix = None
+
 class SendMetric(object):
 
     def __init__(self, app=None):
@@ -9,12 +15,6 @@ class SendMetric(object):
         self.init_app(app)
 
     def init_app(self, app):
-        try:
-            # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
-            suffix = "heroku_" + os.popen('hostname').read().rstrip()
-        except:
-            suffix = None
-
         app.before_request(self._before_request)
 
     def _before_request(self):
