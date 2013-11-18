@@ -8,8 +8,7 @@ try:
 except:
     suffix = None
 
-with current_app.app_context():
-    current_app.statsd = statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
-        port=os.environ.get('STATSD_PORT', None),
-        prefix=os.environ.get('CLUSTER_NAME', None),
-        suffix=suffix)
+current_app.statsd = statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
+    port=os.environ.get('STATSD_PORT', None),
+    prefix=os.environ.get('CLUSTER_NAME', None),
+    suffix=suffix)
