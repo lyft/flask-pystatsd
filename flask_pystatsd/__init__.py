@@ -34,35 +34,6 @@ class SendMetric(object):
         # Where we send our stats to.
         #host = '127.0.0.1'
         host = os.environ['STATSD_HOSTNAME']
-        #host = 'statsd-development-iad.lyft.net'
         port = 8127
         
         return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
-
-        
-    #def teardown(self, exception):
-    #   ctx = stack.top
-        #if hasattr(ctx, 'sqlite3_db'):
-        #    ctx.sqlite3_db.close()
-
-    @property 
-    def connection(self):
-        ctx = stack.top
-        if ctx is not None:
-            if not hasattr(ctx, 'statsd'):
-                ctx.statsd = self.connect()
-            return ctx.statsd
-
-    def counter(self):
-        connect.incr('VARIABLE')
-    
-    def timer(self):
-        connect.timing('KEY', VALUE)
-
-# This sets up the UDP connection to the statsd server.
-        # catch exception try/catch in pystatsd, send udp packet to 127
-        #before request hook. run on every request. 
-        #global object or check to see if statsd is already integrated with flask extension
-        # Use the newstyle teardown_appcontext if it's available,
-        # otherwise fall back to the request context
-        
