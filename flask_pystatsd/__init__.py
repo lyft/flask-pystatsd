@@ -18,11 +18,14 @@ class SendMetric(object):
       # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
       suffix =  "heroku_" + os.popen('hostname').read().rstrip()
     except:
-      suffix = 'no_hostname_defined'
+      suffix = 'no_suffix_hostname_defined'
     
-    # Where we send our stats to.
-    #host = '127.0.0.1'
-    host = os.environ['STATSD_HOSTNAME']
+    try:
+      # Where we send our stats
+      host = os.environ['STATSD_HOSTNAME']
+    except:
+      host = 'statsd-development-iad.lyft.net'
+        
     port = 8127
       
     return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
