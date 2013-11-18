@@ -18,7 +18,7 @@ class statsd(object):
         app.before_request(self._before_request)
 
     def _before_request(self):
-        return self.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
+        return statsd.StatsClient(host=os.environ.get('STATSD_HOSTNAME', None),
         port=os.environ.get('STATSD_PORT', None),
         prefix=os.environ.get('CLUSTER_NAME', None),
         suffix=suffix)
