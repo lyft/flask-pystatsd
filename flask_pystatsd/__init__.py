@@ -29,3 +29,4 @@ class SendMetric(object):
         port = 8127
         
         return statsd.StatsClient(host=host, port=port, prefix=prefix, suffix=suffix)
+
