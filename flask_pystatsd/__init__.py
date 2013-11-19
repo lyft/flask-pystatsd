@@ -1,6 +1,5 @@
 import statsd
 import os
-from flask import current_app
 
 try:
     # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
@@ -8,9 +7,13 @@ try:
 except:
     suffix = None
 
-# We want the application to error and not start if these variables are not set.
 def setup_app(app):
-    app.statsd = statsd.StatsClient(host=os.environ['STATSD_HOSTNAME'],
-    port=int(os.environ['STATSD_PORT']),
-    prefix=os.environ['CLUSTER_NAME'],
-    suffix=suffix)
+    port=os.environ.get('STATSD_PORT', None)
+    if port:
+        # convert to an integer given that StatsClient expects an integer.
+        port=int(port)
+    app.statsd = statsd.StatsClient(
+        host=os.environ.get('STATSD_HOST', None),
+        port=port,
+        prefix=os.environ.get('STATSD_PREFIX', None),
+        suffix=suffix)
