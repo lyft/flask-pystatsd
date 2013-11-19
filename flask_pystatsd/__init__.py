@@ -4,7 +4,7 @@ from flask import current_app
 
 try:
     # This is the suffix component of the metric name. It gets the UUID which is also the hostname.
-    suffix = "heroku_" + os.popen('hostname').read().rstrip()
+    suffix = "heroku_" + os.popen('hostname').read().strip()
 except:
     suffix = None
 
