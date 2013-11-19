@@ -12,8 +12,13 @@ def setup_statsd(app):
     if port:
         # convert to an integer given that StatsClient expects an integer.
         port=int(port)
+
+    host=os.environ.get('STATSD_HOST', None)
+    if host:
+        host=string(host)
+    
     app.statsd = statsd.StatsClient(
-        host=os.environ.get('STATSD_HOST', None),
+        host=host,
         port=port,
         prefix=os.environ.get('STATSD_PREFIX', None),
         suffix=suffix)
