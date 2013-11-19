@@ -7,7 +7,7 @@ try:
 except:
     suffix = None
 
-def setup_app(app):
+def setup_statsd(app):
     port=os.environ.get('STATSD_PORT', None)
     if port:
         # convert to an integer given that StatsClient expects an integer.
