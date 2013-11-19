@@ -8,6 +8,7 @@ try:
 except:
     suffix = None
 
+# We want the application to error and not start if these variables are not set.
 def setup_app(app):
     app.statsd = statsd.StatsClient(host=os.environ['STATSD_HOSTNAME'],
     port=int(os.environ['STATSD_PORT']),
